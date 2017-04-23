@@ -2,12 +2,12 @@ package com.example.service;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
-@RunWith(SpringRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class MathServiceTest {
     @Test
     public void testAdd() {
@@ -37,6 +37,16 @@ public class MathServiceTest {
     @Test
     public void testVolume() {
         assertEquals("The volume of a 2x3x4 rectangle is 24", MathService.generateExpressionAndVolume(2, 3, 4));
+    }
+
+    @Test
+    public void testCircleArea() {
+        assertEquals("Area of a circle with a radius of 4 is 50.26548", MathService.generateExpressionAndCircleArea(4));
+    }
+
+    @Test
+    public void testRectangleArea() {
+        assertEquals("Area of a 4x7 rectangle is 28", MathService.generateExpressionAndRectangleArea(4, 7));
     }
 
     @Test

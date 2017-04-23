@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.text.DecimalFormat;
 import java.util.Formatter;
 import java.util.List;
 
@@ -35,6 +36,19 @@ public class MathService {
         return new Formatter().format(
                 "The volume of a %dx%dx%d rectangle is %d",
                 length, width, height, (length * width * height)).toString();
+    }
+
+    public static String generateExpressionAndCircleArea(Integer radius) {
+        String area = new DecimalFormat("#.#####").format(Math.PI * Math.pow(radius, 2)).toString();
+        return new Formatter().format(
+                "Area of a circle with a radius of %d is %s",
+                radius, area).toString();
+    }
+
+    public static String generateExpressionAndRectangleArea(Integer width, Integer height) {
+        return new Formatter().format(
+                "Area of a %dx%d rectangle is %d",
+                width, height, (width * height)).toString();
     }
 
     private static Integer evaluate(Operation op, Integer x, Integer y) {
