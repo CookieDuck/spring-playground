@@ -10,8 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.Assert.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -68,6 +67,23 @@ public class MathControllerTest {
         mvc.perform(post("/math/sum?n=4&n=5&n=6"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("4 + 5 + 6 = 15"));
+    }
+
+    @Test
+    public void testVolumeAcceptsAllVerbs() throws Exception {
+        String url = "/math/volume/42/56/79";
+        mvc.perform(get(url)).andExpect(status().isOk());
+        mvc.perform(post(url)).andExpect(status().isOk());
+        mvc.perform(put(url)).andExpect(status().isOk());
+        mvc.perform(patch(url)).andExpect(status().isOk());
+        mvc.perform(delete(url)).andExpect(status().isOk());
+    }
+
+    @Test
+    public void testVolume() throws Exception {
+        mvc.perform(get("/math/volume/6/7/8"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a 6x7x8 rectangle is 336"));
     }
 
     private static String buildRequestString(Operation operation, int x, int y) {

@@ -35,6 +35,11 @@ public class MathServiceTest {
     }
 
     @Test
+    public void testVolume() {
+        assertEquals("The volume of a 2x3x4 rectangle is 24", MathService.generateExpressionAndVolume(2, 3, 4));
+    }
+
+    @Test
     public void testAddIsDefault() {
         assertEquals("add", MathService.DEFAULT_OPERATION.toString());
     }

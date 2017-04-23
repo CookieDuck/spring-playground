@@ -23,4 +23,11 @@ public class MathController {
     public String sum(@RequestParam(value = "n") List<Integer> values) {
         return MathService.generateExpressionAndSum(values);
     }
+
+    @RequestMapping("/volume/{length}/{width}/{height}")
+    public String volume(@PathVariable Integer length,
+                         @PathVariable Integer width,
+                         @PathVariable Integer height) {
+        return MathService.generateExpressionAndVolume(length, width, height);
+    }
 }

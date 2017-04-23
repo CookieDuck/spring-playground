@@ -31,6 +31,12 @@ public class MathService {
         return output.toString();
     }
 
+    public static String generateExpressionAndVolume(Integer length, Integer width, Integer height) {
+        return new Formatter().format(
+                "The volume of a %dx%dx%d rectangle is %d",
+                length, width, height, (length * width * height)).toString();
+    }
+
     private static Integer evaluate(Operation op, Integer x, Integer y) {
         switch (op) {
             case subtract:
