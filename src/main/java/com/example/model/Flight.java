@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
@@ -18,12 +20,12 @@ public class Flight {
 
     private List<Ticket> tickets;
 
-    @JsonGetter(value = "Departs")
+//    @JsonGetter(value = "Departs")
     public Date getDeparts() {
         return this.departs;
     }
 
-    @JsonGetter(value = "Tickets")
+//    @JsonGetter(value = "Tickets")
     public List<Ticket> getTickets() {
         return this.tickets;
     }
@@ -38,16 +40,18 @@ public class Flight {
 
     @Builder
     @EqualsAndHashCode
+    @NoArgsConstructor(force = true)
+    @AllArgsConstructor
     public static class Ticket {
         private Passenger passenger;
         private Integer price;
 
-        @JsonGetter(value = "Passenger")
+//        @JsonGetter(value = "Passenger")
         public Passenger getPassenger() {
             return this.passenger;
         }
 
-        @JsonGetter(value = "Price")
+//        @JsonGetter(value = "Price")
         public Integer getPrice() {
             return this.price;
         }
@@ -63,17 +67,19 @@ public class Flight {
 
     @EqualsAndHashCode
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(force = true)
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class Passenger {
         private String firstName;
         private String lastName;
 
-        @JsonGetter(value = "FirstName")
+//        @JsonGetter(value = "FirstName")
         public String getFirstName() {
             return this.firstName;
         }
 
-        @JsonGetter(value = "LastName")
+//        @JsonGetter(value = "LastName")
         public String getLastName() {
             return this.lastName;
         }

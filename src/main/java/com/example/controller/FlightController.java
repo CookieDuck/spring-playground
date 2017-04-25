@@ -1,9 +1,10 @@
 package com.example.controller;
 
 import com.example.model.Flight;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.model.TicketList;
+import com.example.model.TicketSum;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,19 +49,11 @@ public class FlightController {
                 .build();
 
         return(asList(flight1));
-// [
-//        {
-//            "Departs": "2017-04-21 14:34",
-//                "Tickets": [
-//            {
-//                "Passenger": {
-//                "FirstName": "Some name"
-//            },
-//                "Price": 200
-//            }
-//    ]
-//        }
-//]
+    }
+
+    @PostMapping("/tickets/total")
+    public TicketSum calculateTicketTotal(@RequestBody TicketList ticketList) {
+        return new TicketSum(ticketList.getTickets().stream().mapToInt(t -> t.getPrice()).sum());
     }
 
     private static Date createDate(String string) {
