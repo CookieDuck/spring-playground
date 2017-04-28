@@ -15,6 +15,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import javax.transaction.Transactional;
+
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertNotNull;
@@ -34,12 +36,8 @@ public class LessonsControllerTest {
     @Autowired
     private LessonRepository repo;
 
-    @Before
-    public void setupDB() {
-        repo.deleteAll();
-    }
-
     @Test
+    @Transactional
     public void testCreateLesson() throws Exception {
         mvc.perform(post("/lessons")
                 .contentType(MediaType.APPLICATION_JSON).content("{\"title\": \"Should see me\"}"))
@@ -50,6 +48,7 @@ public class LessonsControllerTest {
     }
 
     @Test
+    @Transactional
     public void testGetLesson() throws Exception {
         Lesson target = repo.save(new Lesson("Look for me!"));
         mvc.perform(get("/lessons/" + target.getId()))
@@ -58,6 +57,7 @@ public class LessonsControllerTest {
     }
 
     @Test
+    @Transactional
     public void testPatchLesson() throws Exception {
         Lesson target = repo.save(new Lesson("Mutate me!"));
         Lesson patchLesson = new Lesson("Should see this");
@@ -73,6 +73,7 @@ public class LessonsControllerTest {
     }
 
     @Test
+    @Transactional
     public void testDeleteLesson() throws Exception {
         Lesson target = repo.save(new Lesson("Exterminate me!"));
         assertNotNull(repo.findOne(target.getId()));
@@ -84,6 +85,7 @@ public class LessonsControllerTest {
     }
 
     @Test
+    @Transactional
     public void testGetAllLessons() throws Exception {
         repo.save(new Lesson("un"));
         repo.save(new Lesson("deux"));
