@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-public class WordsController {
+public class StringsController {
     private final WordCounter counter;
 
     @Autowired
-    public WordsController(WordCounter counter) {
+    public StringsController(WordCounter counter) {
         this.counter = counter;
     }
 
