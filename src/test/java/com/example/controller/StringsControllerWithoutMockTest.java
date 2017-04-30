@@ -15,7 +15,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(properties = {
+        "wordCount.caseSensitive=true",
+        "wordCount.words.skip[0]=the",
+        "wordCount.words.skip[1]=an"
+})
 @AutoConfigureMockMvc
 public class StringsControllerWithoutMockTest {
     @Autowired

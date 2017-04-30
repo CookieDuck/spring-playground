@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BeanFactory {
     @Bean
-    public WordCounter makeWordCounter() {
-        return new WordCounter();
+    public WordCounter makeWordCounter(WordCountConfig wordCountConfig) {
+        return new WordCounter(wordCountConfig);
     }
 }
