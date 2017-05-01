@@ -1,17 +1,25 @@
 package com.example.controller;
 
 import com.example.entity.MovieEntity;
+import com.example.model.OmdbMovie;
 import com.example.repo.MovieRepository;
+import com.example.service.OmdbService;
+import com.example.utils.MapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/movies")
 public class MovieController {
 
     @Autowired
-    MovieRepository repo;
+    private MovieRepository repo;
+
+    //TODO inject from constructor!
+    private final OmdbService service = new OmdbService();
 
     public MovieController(MovieRepository movieRepository) {
         this.repo = movieRepository;
@@ -35,5 +43,10 @@ public class MovieController {
             @RequestParam(value = "year2") Integer to
     ) {
         return repo.findByYearBetween(from, to);
+    }
+
+    @GetMapping
+    public List<OmdbMovie> queryOmdb(@RequestParam(value = "q") String query) {
+        return MapperUtils.mapFromResponse(service.searchOmdb(query));
     }
 }
