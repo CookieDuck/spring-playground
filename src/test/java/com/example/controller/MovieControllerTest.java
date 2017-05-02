@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import javax.transaction.Transactional;
+
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -27,12 +29,8 @@ public class MovieControllerTest {
     @Autowired
     private MovieRepository repo;
 
-    @Before
-    public void setup() {
-        repo.deleteAll();
-    }
-
     @Test
+    @Transactional
     public void testMoviePatch() throws Exception {
         MovieEntity target = repo.save(new MovieEntity("Furious George"));
 
@@ -43,6 +41,7 @@ public class MovieControllerTest {
     }
 
     @Test
+    @Transactional
     public void testFindByTitle() throws Exception {
         repo.save(new MovieEntity("Furious George"));
 
@@ -52,6 +51,7 @@ public class MovieControllerTest {
     }
 
     @Test
+    @Transactional
     public void testGetMoviesBetweenYear() throws Exception {
         repo.save(new MovieEntity("Movie Uno", 1999));
         repo.save(new MovieEntity("Movie Dos", 2012));

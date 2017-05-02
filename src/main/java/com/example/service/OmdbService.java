@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.config.OmdbConfig;
 import com.example.remote.OmdbSearchResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -9,12 +10,17 @@ import java.net.URI;
 
 @Service
 public class OmdbService {
-    //TODO inject from constructor!
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final OmdbConfig config;
+    private final RestTemplate restTemplate;
+
+    public OmdbService(OmdbConfig config, RestTemplate restTemplate) {
+        this.config = config;
+        this.restTemplate = restTemplate;
+    }
 
     public OmdbSearchResponse searchOmdb(String query) {
-        URI uri = UriComponentsBuilder.fromUriString("http://www.omdbapi.com/?s={query}")
-                .buildAndExpand(query)
+        URI uri = UriComponentsBuilder.fromUriString("{host}/?s={query}")
+                .buildAndExpand(config.getBaseUrl(), query)
                 .toUri();
 
         return restTemplate.getForObject(uri, OmdbSearchResponse.class);

@@ -14,15 +14,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/movies")
 public class MovieController {
-
-    @Autowired
     private MovieRepository repo;
 
-    //TODO inject from constructor!
-    private final OmdbService service = new OmdbService();
+    private final OmdbService service;
 
-    public MovieController(MovieRepository movieRepository) {
+    @Autowired
+    public MovieController(MovieRepository movieRepository, OmdbService service) {
         this.repo = movieRepository;
+        this.service = service;
     }
 
     @PatchMapping(value = "/{id}/update", produces = MediaType.APPLICATION_JSON_VALUE)
