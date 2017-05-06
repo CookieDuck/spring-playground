@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.config.PlaygroundSecurityConfig;
 import com.example.repo.EmployeeRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
@@ -22,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(AdminController.class)
 @AutoConfigureMockMvc
 @ContextConfiguration
+@Import(PlaygroundSecurityConfig.class)
 public class AdminControllerTest {
     @Autowired
     private MockMvc mvc;
@@ -32,9 +35,9 @@ public class AdminControllerTest {
     @Test
     public void testAdminRoleGrantsAccess() throws Exception {
         mvc.perform(get("/admin/employees")
-        .with(user("boss").password("my-boss-password").roles("MANAGER", "ADMIN")))
-                .andExpect(authenticated().withRoles("MANAGER", "ADMIN"));
-//                .andExpect(status().is(200)); //TODO Argh!  Figure this out!
+                .with(user("boss").password("my-boss-password").roles("MANAGER", "ADMIN")))
+                .andExpect(authenticated().withRoles("MANAGER", "ADMIN"))
+                .andExpect(status().is(200));
     }
 
     @Test
