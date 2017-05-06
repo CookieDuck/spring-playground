@@ -2,7 +2,6 @@ package com.example.controller;
 
 import com.example.entity.MovieEntity;
 import com.example.repo.MovieRepository;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(secure = false)
 public class MovieControllerTest {
     @Autowired
     private MockMvc mvc;

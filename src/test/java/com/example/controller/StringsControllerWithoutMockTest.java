@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         "wordCount.words.skip[0]=the",
         "wordCount.words.skip[1]=an"
 })
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(secure = false)
 public class StringsControllerWithoutMockTest {
     @Autowired
     private MockMvc mvc;

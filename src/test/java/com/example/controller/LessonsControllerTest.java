@@ -3,7 +3,6 @@ package com.example.controller;
 import com.example.entity.Lesson;
 import com.example.repo.LessonRepository;
 import com.google.gson.GsonBuilder;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(secure = false)
 public class LessonsControllerTest {
 
     @Autowired
