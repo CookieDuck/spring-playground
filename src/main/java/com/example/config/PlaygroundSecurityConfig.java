@@ -18,7 +18,7 @@ public class PlaygroundSecurityConfig extends WebSecurityConfigurerAdapter {
                 .inMemoryAuthentication()
                 .withUser("employee").password("my-employee-password").roles("EMPLOYEE")
                 .and()
-                .withUser("boss").password("my-boss-password").roles("MANAGER");
+                .withUser("boss").password("my-boss-password").roles("ADMIN", "MANAGER");
     }
 
     @Override
@@ -26,8 +26,8 @@ public class PlaygroundSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.httpBasic();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().mvcMatchers(
-                "/flights/**", "/math/**", "/lessons/**", "/movies/**", "/words/**").permitAll();
-        http.authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests()
+                .mvcMatchers("/flights/**", "/math/**", "/lessons/**", "/movies/**", "/words/**").permitAll()
+                .mvcMatchers("/admin/**").hasRole("ADMIN").anyRequest().authenticated();
     }
 }
