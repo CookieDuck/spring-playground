@@ -1,5 +1,6 @@
 package com.example.config;
 
+import com.example.service.EmployeeDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,12 +14,16 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 public class PlaygroundSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
+    EmployeeDetailsService employeeDetailsService;
+
+    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("employee").password("my-employee-password").roles("EMPLOYEE")
-                .and()
-                .withUser("boss").password("my-boss-password").roles("ADMIN", "MANAGER");
+//        auth
+//                .inMemoryAuthentication()
+//                .withUser("employee").password("my-employee-password").roles("EMPLOYEE")
+//                .and()
+//                .withUser("boss").password("my-boss-password").roles("ADMIN", "MANAGER");
+        auth.userDetailsService(employeeDetailsService);
     }
 
     @Override
