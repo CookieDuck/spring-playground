@@ -1,12 +1,14 @@
 package com.example.service;
 
 import com.example.config.WordCountConfig;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@Component
 public class WordCounter {
     private final WordCountConfig config;
 
