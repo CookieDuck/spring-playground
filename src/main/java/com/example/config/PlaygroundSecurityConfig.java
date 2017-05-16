@@ -20,11 +20,6 @@ public class PlaygroundSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .inMemoryAuthentication()
-//                .withUser("employee").password("my-employee-password").roles("EMPLOYEE")
-//                .and()
-//                .withUser("boss").password("my-boss-password").roles("ADMIN", "MANAGER");
         auth
                 .userDetailsService(employeeDetailsService)
                 .passwordEncoder(passwordEncoder());
