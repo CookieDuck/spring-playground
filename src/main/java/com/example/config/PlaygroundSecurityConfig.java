@@ -32,7 +32,13 @@ public class PlaygroundSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
                 .mvcMatchers("/flights/**", "/math/**", "/lessons/**", "/movies/**", "/words/**").permitAll()
+                .mvcMatchers(actuatorEndpoints()).permitAll()
                 .mvcMatchers("/admin/**").hasRole("ADMIN").anyRequest().authenticated();
+    }
+
+    private String[] actuatorEndpoints() {
+        return new String[] { "/autoconfig", "/beans", "/configprops", "/dump", "/env", "/health", "/info", "/loggers",
+        "/metrics", "/mappings", "/trace" }; //TODO pull out to config?
     }
 
     @Bean
